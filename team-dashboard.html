@@ -225,45 +225,8 @@
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="/api/placeholder/40/40" alt="Player" class="player-avatar me-2">
-                                                        <div>
-                                                            <h6 class="mb-0">John Smith</h6>
-                                                            <small class="text-muted">Captain</small>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>All-rounder</td>
-                                                <td>24</td>
-                                                <td>
-                                                    <span class="badge bg-success">Active</span>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View Profile</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="/api/placeholder/40/40" alt="Player" class="player-avatar me-2">
-                                                        <div>
-                                                            <h6 class="mb-0">Mike Johnson</h6>
-                                                            <small class="text-muted">Vice Captain</small>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>Batsman</td>
-                                                <td>22</td>
-                                                <td>
-                                                    <span class="badge bg-warning">Injured</span>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View Profile</button>
-                                                </td>
-                                            </tr>
+                                        <tbody id="playerTableBody">
+                                            <!-- Players will be added here dynamically -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -300,8 +263,15 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="playerPhoto" class="form-label">Player Photo</label>
-                            <input type="file" class="form-control" id="playerPhoto" accept="image/*">
+                            <label for="playerMatches" class="form-label">Matches</label>
+                            <input type="number" class="form-control" id="playerMatches" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="playerStatus" class="form-label">Status</label>
+                            <select class="form-select" id="playerStatus" required>
+                                <option value="active">Active</option>
+                                <option value="injured">Injured</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Add Player</button>
                     </form>
@@ -348,6 +318,67 @@
     
         // Load teams when the page loads
         document.addEventListener('DOMContentLoaded', fetchTeams);
+
+        // Function to display players from local storage
+        function displayPlayers() {
+            const players = JSON.parse(localStorage.getItem('players')) || [];
+            const playerTableBody = document.getElementById('playerTableBody');
+            playerTableBody.innerHTML = '';
+
+            players.forEach(player => {
+                const row = `
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="/api/placeholder/40/40" alt="Player" class="player-avatar me-2">
+                                <div>
+                                    <h6 class="mb-0">${player.name}</h6>
+                                    <small class="text-muted">${player.role}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${player.role}</td>
+                        <td>${player.matches}</td>
+                        <td>
+                            <span class="badge bg-${player.status === 'active' ? 'success' : 'warning'}">${player.status.charAt(0).toUpperCase() + player.status.slice(1)}</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">View Profile</button>
+                        </td>
+                    </tr>
+                `;
+                playerTableBody.innerHTML += row;
+            });
+        }
+
+        // Function to add a new player
+        document.getElementById('addPlayerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const playerName = document.getElementById('playerName').value;
+            const playerRole = document.getElementById('playerRole').value;
+            const playerMatches = document.getElementById('playerMatches').value;
+            const playerStatus = document.getElementById('playerStatus').value;
+
+            const newPlayer = {
+                name: playerName,
+                role: playerRole,
+                matches: playerMatches,
+                status: playerStatus
+            };
+
+            const players = JSON.parse(localStorage.getItem('players')) || [];
+            players.push(newPlayer);
+            localStorage.setItem('players', JSON.stringify(players));
+
+            displayPlayers();
+            document.getElementById('addPlayerForm').reset();
+            const addPlayerModal = bootstrap.Modal.getInstance(document.getElementById('addPlayerModal'));
+            addPlayerModal.hide();
+        });
+
+        // Load players when the page loads
+        document.addEventListener('DOMContentLoaded', displayPlayers);
     </script>
     
     <!-- Teams Table -->
