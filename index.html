@@ -5,16 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cricket League Management System</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
+    <style>
+        .hero-section {
+            position: relative;
+            color: white;
+            padding: 100px 0;
+            background-color: #1a472a;
+            overflow: hidden;
+        }
 
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+            z-index: 1;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .feature-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .live-score-section {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+        }
+
+        .points-table th {
+            background-color: #1a472a;
+            color: white;
+        }
+
+        .footer {
+            background-color: #1a472a;
+            color: white;
+            padding: 40px 0;
+        }
+
+        .navbar {
+            background-color: #1a472a !important;
+        }
+
+        .btn-primary {
+            background-color: #1a472a;
+            border-color: #1a472a;
+        }
+
+        .btn-primary:hover {
+            background-color: #2d5a3c;
+            border-color: #2d5a3c;
+        }
+    </style>
+</head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Cricket-League</a>
+            <a class="navbar-brand" href="#">CrickLeague</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,12 +100,20 @@
                         <a class="nav-link active" href="#">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="team-dashboard.html">Teams</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#schedule">Schedule</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#points-table">Points Table</a>
                     </li>
                 </ul>
+                <!-- Find this part in your navbar -->
+                <div class="d-flex">
+                <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">Register</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -55,15 +139,9 @@
         </svg>
         <div class="container hero-content">
             <h1 class="display-4 mb-4">Cricket League Management System</h1>
-            <p class="lead mb-4">Experience the thrill of cricket with real-time updates, team management, and more! Our system allows you to register players, manage teams, view match schedules. Stay updated with the latest points table and never miss a moment of the action.</p>
-            <div class="hero-buttons">
-                <button class="btn btn-light btn-lg me-3 hover-effect" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    <i class="fas fa-sign-in-alt me-2"></i>Login
-                </button>
-                <button class="btn btn-outline-light btn-lg hover-effect" data-bs-toggle="modal" data-bs-target="#registerModal">
-                    <i class="fas fa-user-plus me-2"></i>Register
-                </button>
-            </div>
+            <p class="lead mb-4">Experience the thrill of cricket with real-time updates, team management, and more!</p>
+            <button class="btn btn-primary btn-lg me-3" data-bs-toggle="modal" data-bs-target="#teamRegistrationModal">Register Team</button>
+            <button class="btn btn-outline-light btn-lg">View Schedule</button>
         </div>
     </section>
 
@@ -209,6 +287,9 @@
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+                    <div class="text-end">
+                        <a href="#" class="text-decoration-none">Forgot Password?</a>
                     </div>
                     <button type="submit" class="btn btn-primary w-100 mt-3">Login</button>
                 </form>
