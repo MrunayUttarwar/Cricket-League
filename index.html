@@ -111,11 +111,11 @@
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#schedule">
+                        <a class="dropdown-item d-flex align-items-center" href="#scheduled-matches">
                             <i class="fas fa-calendar-alt me-2"></i>
                             <div>
-                                <span class="d-block">Schedule</span>
-                                <small class="text-white">Match Fixtures</small>
+                                <span class="d-block">Scheduled Matches</span>
+                                <small class="text-white">View All Scheduled Matches</small>
                             </div>
                         </a>
                     </li>
@@ -126,6 +126,26 @@
                             <div>
                                 <span class="d-block">Points Table</span>
                                 <small class="text-white">Team Rankings</small>
+                            </div>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="schedule-matches.html">
+                            <i class="fas fa-calendar-plus me-2"></i>
+                            <div>
+                                <span class="d-block">Schedule Matches</span>
+                                <small class="text-white">Accessible to Match Schedulers</small>
+                            </div>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="team-dashboard.html">
+                            <i class="fas fa-users me-2"></i>
+                            <div>
+                                <span class="d-block">Team Dashboard</span>
+                                <small class="text-white">Manage Your Team</small>
                             </div>
                         </a>
                     </li>
@@ -265,6 +285,16 @@
         </div>
     </section>
 
+    <!-- Scheduled Matches Section -->
+    <section id="scheduled-matches" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Scheduled Matches</h2>
+            <div id="matchesList" class="row g-4">
+                <!-- Matches will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -364,6 +394,7 @@
                             <option value="player">Player</option>
                             <option value="team_manager">Team Manager</option>
                             <option value="match_official">Match Official</option>
+                            <option value="match_scheduler">Match Scheduler</option>
                         </select>
                     </div>
                     <div class="mb-3 form-check">
@@ -468,6 +499,58 @@
 <script src="js/team-registration.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/players.js"></script>
+
+<script>
+    // Example: Simulate user role (replace this with actual role-checking logic)
+    const userRole = localStorage.getItem('userRole') || 'player'; // Replace with actual role retrieval logic
+
+    // Match Scheduler Form Submission
+    document.getElementById('matchSchedulerForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const teamA = document.getElementById('teamA').value;
+        const teamB = document.getElementById('teamB').value;
+        const matchDate = document.getElementById('matchDate').value;
+        const matchTime = document.getElementById('matchTime').value;
+        const venue = document.getElementById('venue').value;
+
+        const matchCard = `
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5>${teamA} vs ${teamB}</h5>
+                        <p>${matchDate} at ${matchTime}</p>
+                        <p>Venue: ${venue}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.getElementById('matchesList').insertAdjacentHTML('beforeend', matchCard);
+
+        // Clear form fields
+        this.reset();
+    });
+
+    // Retrieve scheduled matches from localStorage
+    const scheduledMatches = JSON.parse(localStorage.getItem('scheduledMatches')) || [];
+    const matchesList = document.getElementById('matchesList');
+
+    // Clear existing matches and populate from localStorage
+    matchesList.innerHTML = '';
+    scheduledMatches.forEach(match => {
+        const matchCard = `
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5>${match.teamA} vs ${match.teamB}</h5>
+                        <p>${match.matchDate} at ${match.matchTime}</p>
+                        <p>Venue: ${match.venue}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        matchesList.insertAdjacentHTML('beforeend', matchCard);
+    });
+</script>
 
 </body>
 </html>
