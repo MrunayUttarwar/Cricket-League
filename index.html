@@ -434,8 +434,22 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="teamLogo" class="form-label">Team Logo</label>
-                            <input type="file" class="form-control" id="teamLogo" accept="image/*">
+                            <label for="teamLogo" class="form-label">Team Logo*</label>
+                            <div class="d-flex flex-wrap">
+                                <label class="me-3">
+                                    <input type="radio" name="teamLogo" value="mi-logo.png" required>
+                                    <img src="Images/mi.jpg" alt="MI Logo" class="img-thumbnail" width="50">
+                                </label>
+                                <label class="me-3">
+                                    <input type="radio" name="teamLogo" value="csk-logo.png" required>
+                                    <img src="Images/csk.png" alt="CSK Logo" class="img-thumbnail" width="50">
+                                </label>
+                                <label class="me-3">
+                                    <input type="radio" name="teamLogo" value="rcb-logo.png" required>
+                                    <img src="Images/rcb.jpg" alt="RCB Logo" class="img-thumbnail" width="50">
+                                </label>
+                                <!-- Add more logos as needed -->
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="teamDescription" class="form-label">Team Description</label>
