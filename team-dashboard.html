@@ -317,11 +317,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="js/team-dashboard.js"></script>
 
-    <a href="players.html" class="nav-link">
-        <i class="fas fa-users"></i>
-        Players
-    </a>
-
     <script>
         // Fetch team data from Node.js API
         async function fetchTeams() {
@@ -431,19 +426,6 @@
             upcomingMatchesTable.insertAdjacentHTML('beforeend', row);
         });
     </script>
-    
-    <!-- Teams Table -->
-    <h2>Team List</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Team Name</th>
-                <th>Manager</th>
-            </tr>
-        </thead>
-        <tbody id="teamTableBody">
-            <!-- Teams will be added here dynamically -->
-        </tbody>
     </table>    
 
 </body>
