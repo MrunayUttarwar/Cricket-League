@@ -296,3 +296,105 @@ body {
         transform: translateY(0);
     }
 }
+
+/* Team Dashboard Styles */
+.sidebar {
+    background-color: var(--cricket-green);
+    min-height: 100vh;
+    color: var(--boundary-white);
+}
+
+.sidebar .nav-link {
+    color: var(--boundary-white);
+    padding: 10px 20px;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+    background-color: var(--secondary-green);
+    transform: translateX(5px);
+}
+
+.sidebar .nav-link.active {
+    background-color: var(--secondary-green);
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.stat-card {
+    border-left: 4px solid var(--cricket-green);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background-color: var(--cricket-green);
+    border-color: var(--cricket-green);
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-green);
+    border-color: var(--secondary-green);
+}
+
+.btn-outline-light:hover {
+    background-color: var(--boundary-white);
+    color: var(--cricket-green);
+}
+
+.card-header {
+    background-color: var(--cricket-green);
+    color: var(--boundary-white);
+}
+
+.table th {
+    background-color: var(--cricket-green);
+    color: var(--boundary-white);
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.team-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.player-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Dashboard Cards Animation */
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-card {
+    animation: cardFadeIn 0.5s ease forwards;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }

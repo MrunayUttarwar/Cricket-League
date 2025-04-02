@@ -1,15 +1,15 @@
 {
-  "name": "cricket-leauge",
+  "name": "cricket-league",
   "version": "1.0.0",
-  "main": "auth.js",
+  "description": "Cricket League Player Registration System",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "express": "^4.21.2"
+    "mongodb": "^6.3.0"
   }
 }

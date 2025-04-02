@@ -1,34 +1,10 @@
 // Team Registration handling
 document.addEventListener('DOMContentLoaded', function() {
-    const teamRegistrationForm = document.getElementById('teamRegistrationForm');
-    
-    if(teamRegistrationForm) {
-        teamRegistrationForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            if (!validateTeamRegistration()) {
-                return;
-            }
-            
-            // Collect form data
-            const formData = new FormData();
-            formData.append('teamName', document.getElementById('teamName').value);
-            formData.append('teamShortName', document.getElementById('teamShortName').value);
-            formData.append('teamDescription', document.getElementById('teamDescription').value);
-            formData.append('managerName', document.getElementById('managerName').value);
-            formData.append('managerPhone', document.getElementById('managerPhone').value);
-            formData.append('managerEmail', document.getElementById('managerEmail').value);
-            formData.append('groundName', document.getElementById('groundName').value);
-            formData.append('groundCapacity', document.getElementById('groundCapacity').value);
-            formData.append('groundAddress', document.getElementById('groundAddress').value);
-            
-            // Handle file upload
-            const logoFile = document.getElementById('teamLogo').files[0];
-            if (logoFile) {
-                formData.append('teamLogo', logoFile);
-            }
-            
-            handleTeamRegistration(formData);
+    const teamForm = document.getElementById('teamRegistrationForm');
+    if (teamForm) {
+        teamForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            // Team registration logic here
         });
     }
 });

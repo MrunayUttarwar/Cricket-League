@@ -41,25 +41,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Login form handling
     const loginForm = document.getElementById('loginForm');
-    if(loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Basic validation
-            if(!validateEmail(email)) {
-                showAlert('Please enter a valid email address', 'danger');
-                return;
-            }
-            
-            if(password.length < 6) {
-                showAlert('Password must be at least 6 characters long', 'danger');
-                return;
-            }
-            
-            // Here you would typically make an API call to your backend
-            handleLogin(email, password);
+    if (loginForm) {
+        loginForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            // Authentication logic here
         });
     }
     
@@ -85,6 +70,39 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Here you would typically make an API call to your backend
             handleRegistration(formData);
+        });
+    }
+
+    const authForm = document.getElementById('authForm');
+    if (authForm) {
+        authForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            try {
+                const formData = {
+                    email: document.getElementById('authEmail').value,
+                    password: document.getElementById('authPassword').value
+                };
+
+                const response = await fetch('http://localhost:3000/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Registration failed');
+                }
+
+                const result = await response.json();
+                alert('Registration successful!');
+                this.reset();
+            } catch (error) {
+                alert('Registration failed: ' + error.message);
+                console.error('Error:', error);
+            }
         });
     }
 });
