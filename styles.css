@@ -46,6 +46,9 @@ body {
     position: relative;
     z-index: 2;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .hero-content h1 {
@@ -56,6 +59,12 @@ body {
     margin-bottom: 1.5rem;
 }
 
+.hero-content .lead {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+}
+
 .hero-buttons {
     margin-top: 2rem;
     animation: fadeInUp 0.8s ease-out;
@@ -63,8 +72,9 @@ body {
 
 .hero-buttons .btn {
     margin: 0 10px;
-    min-width: 150px;
+    min-width: 160px;
     padding: 12px 30px;
+    font-size: 1.1rem;
 }
 
 .hero-buttons .btn i {
@@ -126,9 +136,60 @@ body {
 
 /* Navbar Styles */
 .navbar {
-    background-color: var(--cricket-green) !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 1rem 0;
+    background: linear-gradient(to right, var(--cricket-green), var(--secondary-green)) !important;
+    padding: 0.8rem 0;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--boundary-white) !important;
+}
+
+.navbar-brand i {
+    color: var(--ball-red);
+    font-size: 1.2rem;
+}
+
+.navbar-nav .nav-item {
+    margin: 0 5px;
+}
+
+.nav-link {
+    color: var(--boundary-white) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    letter-spacing: 0.3px;
+}
+
+.nav-link i {
+    font-size: 0.9rem;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--boundary-white) !important;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        padding: 1rem 0;
+    }
+    
+    .nav-link {
+        padding: 0.8rem 1rem !important;
+        margin: 2px 0;
+    }
 }
 
 /* Button Styles */

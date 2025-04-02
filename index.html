@@ -14,67 +14,35 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
-            <div class="dropdown">
-                <a class="navbar-brand dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-cricket me-2"></i>
-                    <span>Cricket-League</span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#home">
-                            <i class="fas fa-home me-2"></i>
-                            <div>
-                                <span class="d-block text-white">Home</span>
-                                <small class="text-white">Dashboard & Updates</small>
-                            </div>
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-cricket-bat-ball me-2"></i>Cricket-League
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">
+                            <i class="fas fa-home me-1"></i>Home
                         </a>
                     </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#scheduled-matches">
-                            <i class="fas fa-calendar-alt me-2"></i>
-                            <div>
-                                <span class="d-block">Scheduled Matches</span>
-                                <small class="text-white">View All Scheduled Matches</small>
-                            </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#scheduled-matches">
+                            <i class="fas fa-calendar-alt me-1"></i>Schedule
                         </a>
                     </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#points-table">
-                            <i class="fas fa-trophy me-2"></i>
-                            <div>
-                                <span class="d-block">Points Table</span>
-                                <small class="text-white">Team Rankings</small>
-                            </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#points-table">
+                            <i class="fas fa-trophy me-1"></i>Points Table
                         </a>
                     </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="schedule-matches.html">
-                            <i class="fas fa-calendar-plus me-2"></i>
-                            <div>
-                                <span class="d-block">Schedule Matches</span>
-                                <small class="text-white">Accessible to Match Schedulers</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="team-dashboard.html">
-                            <i class="fas fa-users me-2"></i>
-                            <div>
-                                <span class="d-block">Team Dashboard</span>
-                                <small class="text-white">Manage Your Team</small>
-                            </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#teams">
+                            <i class="fas fa-users me-1"></i>Teams
                         </a>
                     </li>
                 </ul>
-                <!-- Find this part in your navbar -->
-                <div class="d-flex">
-                <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">Register</button>
-                </div>
             </div>
         </div>
     </nav>
@@ -100,9 +68,15 @@
         </svg>
         <div class="container hero-content">
             <h1 class="display-4 mb-4">Cricket League Management System</h1>
-            <p class="lead mb-4">Experience the thrill of cricket with real-time updates, team management, and more!</p>
-            <button class="btn btn-primary btn-lg me-3" data-bs-toggle="modal" data-bs-target="#teamRegistrationModal">Register Team</button>
-            <button class="btn btn-outline-light btn-lg">View Schedule</button>
+            <p class="lead mb-4 fs-4">Experience the thrill of cricket like never before! Our comprehensive platform brings together teams, players, and fans in one dynamic ecosystem. Manage team registrations, access detailed statistics, and stay updated with the latest tournament highlights.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-light btn-lg me-3 hover-effect" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </button>
+                <button class="btn btn-outline-light btn-lg hover-effect" data-bs-toggle="modal" data-bs-target="#registerModal">
+                    <i class="fas fa-user-plus me-2"></i>Register
+                </button>
+            </div>
         </div>
     </section>
 
