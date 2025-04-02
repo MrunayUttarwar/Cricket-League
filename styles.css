@@ -11,13 +11,13 @@ body {
     background-color: #f5f5f5;
 }
 
+/* Hero Section Styles */
 .hero-section {
     position: relative;
-    color: var(--boundary-white);
-    padding: 120px 0;
+    color: white;
+    padding: 100px 0;
     background-color: var(--cricket-green);
     overflow: hidden;
-    border-bottom: 5px solid var(--ball-red);
 }
 
 .hero-section::before {
@@ -27,9 +27,9 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
     z-index: 1;
-}`
+}
 
 .hero-background {
     position: absolute;
@@ -61,29 +61,42 @@ body {
     animation: fadeInUp 0.8s ease-out;
 }
 
+.hero-buttons .btn {
+    margin: 0 10px;
+    min-width: 150px;
+    padding: 12px 30px;
+}
+
+.hero-buttons .btn i {
+    margin-right: 8px;
+    transition: transform 0.3s ease;
+}
+
+.hero-buttons .btn:hover i {
+    transform: translateX(3px);
+}
+
+/* Feature Card Styles */
 .feature-card {
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
     border: none;
     background: white;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    overflow: hidden;
-    border-top: 4px solid var(--ball-red);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .feature-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* Live Score Section */
 .live-score-section {
-    background: linear-gradient(45deg, #f8f9fa, #ffffff);
-    padding: 60px 0;
-    border-top: 3px solid var(--pitch-brown);
-    border-bottom: 3px solid var(--pitch-brown);
+    background-color: #f8f9fa;
+    padding: 40px 0;
 }
 
+/* Points Table Styles */
 .points-table {
     border-radius: 10px;
     overflow: hidden;
@@ -91,11 +104,8 @@ body {
 }
 
 .points-table th {
-    background: linear-gradient(to right, var(--cricket-green), var(--secondary-green));
-    color: var(--boundary-white);
-    padding: 15px;
-    font-weight: 600;
-    text-transform: uppercase;
+    background-color: var(--cricket-green);
+    color: white;
 }
 
 .points-table tr:nth-child(even) {
@@ -107,22 +117,24 @@ body {
     transition: background-color 0.3s ease;
 }
 
+/* Footer Styles */
 .footer {
-    background: linear-gradient(to right, var(--cricket-green), var(--secondary-green));
-    color: var(--boundary-white);
-    padding: 50px 0;
-    border-top: 5px solid var(--ball-red);
+    background-color: var(--cricket-green);
+    color: white;
+    padding: 40px 0;
 }
 
+/* Navbar Styles */
 .navbar {
-    background: linear-gradient(to right, var(--cricket-green), var(--secondary-green)) !important;
+    background-color: var(--cricket-green) !important;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 1rem 0;
 }
 
+/* Button Styles */
 .btn-primary {
-    background: linear-gradient(to right, var(--cricket-green), var(--secondary-green));
-    border: none;
+    background-color: var(--cricket-green);
+    border-color: var(--cricket-green);
     padding: 12px 25px;
     border-radius: 30px;
     font-weight: 600;
@@ -132,54 +144,10 @@ body {
 }
 
 .btn-primary:hover {
-    background: linear-gradient(to right, var(--secondary-green), var(--cricket-green));
+    background-color: var(--secondary-green);
+    border-color: var(--secondary-green);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.modal-content {
-    border-radius: 15px;
-    border: none;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-}
-
-.modal-header {
-    background: linear-gradient(to right, var(--cricket-green), var(--secondary-green));
-    color: var(--boundary-white);
-    border-radius: 15px 15px 0 0;
-}
-
-.form-control {
-    border-radius: 8px;
-    padding: 12px;
-    border: 2px solid #e9ecef;
-    transition: all 0.3s ease;
-}
-
-.form-control:focus {
-    border-color: var(--cricket-green);
-    box-shadow: 0 0 0 0.2rem rgba(26, 71, 42, 0.25);
-}
-
-.hover-effect {
-    transition: all 0.3s ease;
-    transform: translateY(0);
-}
-
-.hover-effect:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .btn-light {
@@ -221,17 +189,49 @@ body {
     width: 100%;
 }
 
-.hero-buttons .btn {
-    margin: 0 10px;
-    min-width: 150px;
-    padding: 12px 30px;
+/* Modal Styles */
+.modal-content {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
 }
 
-.hero-buttons .btn i {
-    margin-right: 8px;
-    transition: transform 0.3s ease;
+.modal-header {
+    background: linear-gradient(to right, var(--cricket-green), var(--secondary-green));
+    color: var(--boundary-white);
+    border-radius: 15px 15px 0 0;
 }
 
-.hero-buttons .btn:hover i {
-    transform: translateX(3px);
+/* Form Controls */
+.form-control {
+    border-radius: 8px;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--cricket-green);
+    box-shadow: 0 0 0 0.2rem rgba(26, 71, 42, 0.25);
+}
+
+.hover-effect {
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+.hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
