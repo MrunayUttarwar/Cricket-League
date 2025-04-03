@@ -42,6 +42,11 @@
                             <i class="fas fa-users me-1"></i>Team Dashboard
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="schedule-matches.html" class="btn btn-outline-light">
+                            <i class="fas fa-plus me-1"></i>Schedule Matches
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -70,12 +75,12 @@
             <h1 class="display-4 mb-4">Cricket League Management System</h1>
             <p class="lead mb-4 fs-4">Experience the thrill of cricket like never before! Our comprehensive platform brings together teams, players, and fans in one dynamic ecosystem. Manage team registrations, access detailed statistics, and stay updated with the latest tournament highlights.</p>
             <div class="hero-buttons">
-                <button class="btn btn-light btn-lg me-3 hover-effect" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <a href="login.html" class="btn btn-light btn-lg me-3 hover-effect">
                     <i class="fas fa-sign-in-alt me-2"></i>Login
-                </button>
-                <button class="btn btn-outline-light btn-lg hover-effect" data-bs-toggle="modal" data-bs-target="#registerModal">
+                </a>
+                <a href="register.html" class="btn btn-outline-light btn-lg hover-effect">
                     <i class="fas fa-user-plus me-2"></i>Register
-                </button>
+                </a>
             </div>
         </div>
     </section>
@@ -210,99 +215,6 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Login Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Login</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="loginForm">
-                    <div class="mb-3">
-                        <label for="loginEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="loginEmail" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="loginPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="loginPassword" required>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                    </div>
-                    <div class="text-end">
-                        <a href="#" class="text-decoration-none">Forgot Password?</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-3">Login</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Registration Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Register</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="registrationForm">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="firstName" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="registerEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="registerEmail" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" id="phone" required>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="registerPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="registerPassword" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="confirmPassword" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="userRole" class="form-label">Register as</label>
-                        <select class="form-select" id="userRole" required>
-                            <option value="">Select Role</option>
-                            <option value="player">Player</option>
-                            <option value="team_manager">Team Manager</option>
-                            <option value="match_official">Match Official</option>
-                            <option value="match_scheduler">Match Scheduler</option>
-                        </select>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="termsAgree" required>
-                        <label class="form-check-label" for="termsAgree">
-                            I agree to the Terms and Conditions
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Register</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Team Registration Form -->
 <div class="modal fade" id="teamRegistrationModal" tabindex="-1">
