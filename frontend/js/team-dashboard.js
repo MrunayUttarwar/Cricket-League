@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'index.html'; // Redirect to home if not logged in
             return;
         }
-
-
+        
     // Load team data when page loads
     loadTeamData();
     

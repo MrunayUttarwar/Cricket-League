@@ -14,47 +14,12 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Welcome/Testing Routes
-app.get('/', (req, res) => {
-    try {
-        res.status(200).json({
-            message: 'Welcome to Cricket League API',
-            status: 'Server is running',
-            time: new Date(),
-            endpoints: {
-                test: '/api/test',
-                health: '/api/health',
-                register: '/api/register'
-            }
-        });
-    } catch (error) {
-        console.error('Root endpoint error:', error);
-        res.status(500).json({ message: 'Server error' });
-    }
-});
-
-app.get('/api/test', (req, res) => {
-    res.json({
-        message: 'API is working properly',
-        environment: process.env.NODE_ENV || 'development',
-        timestamp: new Date()
-    });
-});
-
-// Health Check endpoint
-app.get('/api/health', (req, res) => {
-    res.json({
-        status: 'healthy',
-        mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
-        timestamp: new Date()
-    });
-});
-
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
+
 .then(() => {
     console.log('Connected to MongoDB');
 })
@@ -87,6 +52,58 @@ app.post('/api/register', async (req, res) => {
     } catch (error) {
         console.error('Registration error:', error);
         res.status(500).json({ message: 'Server error during registration' });
+    }
+});
+const bcrypt = require('bcryptjs');
+
+// Login endpoint
+app.post('/api/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Validate input
+        if (!email || !password) {
+            return res.status(400).json({ 
+                message: 'Email and password are required' 
+            });
+        }
+
+        // Find user by email
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(401).json({ 
+                message: 'Invalid email or password' 
+            });
+        }
+
+        // Compare password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ 
+                message: 'Invalid email or password' 
+            });
+        }
+
+        // Create user object without password
+        const userResponse = {
+            id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            userRole: user.userRole
+        };
+
+        res.status(200).json({
+            message: 'Login successful',
+            user: userResponse
+        });
+
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ 
+            message: 'Server error during login',
+            error: error.message 
+        });
     }
 });
 
