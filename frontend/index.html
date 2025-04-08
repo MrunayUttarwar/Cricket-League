@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket League Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-cricket-bat-ball me-2"></i>Cricket-League
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#scheduled-matches">
+                            <i class="fas fa-calendar-alt me-1"></i>Schedule
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#points-table">
+                            <i class="fas fa-trophy me-1"></i>Points Table
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="team-dashboard.html">
+                            <i class="fas fa-users me-1"></i>Team Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="schedule-matches.html" class="btn btn-outline-light">
+                            <i class="fas fa-plus me-1"></i>Schedule Matches
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with SVG Background -->
+    <section class="hero-section">
+        <svg class="hero-background" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+            <rect width="800" height="600" fill="#1a472a"/>
+            <ellipse cx="400" cy="300" rx="350" ry="250" fill="#2d5a3c" stroke="#ffffff" stroke-width="2"/>
+            <rect x="350" y="200" width="100" height="200" fill="#c4a484" stroke="#ffffff" stroke-width="1"/>
+            <rect x="340" y="220" width="120" height="5" fill="#ffffff"/>
+            <rect x="340" y="375" width="120" height="5" fill="#ffffff"/>
+            <g fill="#cc0000">
+                <circle cx="100" cy="100" r="15"/>
+                <circle cx="700" cy="100" r="15"/>
+                <circle cx="100" cy="500" r="15"/>
+                <circle cx="700" cy="500" r="15"/>
+            </g>
+            <g fill="#8b4513">
+                <path d="M200 50 L220 50 L230 150 L190 150 Z"/>
+                <path d="M600 450 L620 450 L630 550 L590 550 Z"/>
+            </g>
+        </svg>
+        <div class="container hero-content">
+            <h1 class="display-4 mb-4">Cricket League Management System</h1>
+            <p class="lead mb-4 fs-4">Experience the thrill of cricket like never before! Our comprehensive platform brings together teams, players, and fans in one dynamic ecosystem. Manage team registrations, access detailed statistics, and stay updated with the latest tournament highlights.</p>
+            <div class="hero-buttons">
+                <a href="login.html" class="btn btn-light btn-lg me-3 hover-effect">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+                <a href="register.html" class="btn btn-outline-light btn-lg hover-effect">
+                    <i class="fas fa-user-plus me-2"></i>Register
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card feature-card h-100">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Player Registration</h3>
+                            <p class="card-text">Register players for the upcoming season. Manage team rosters and player profiles.</p>
+                            <a href="player-registration.html" class="btn btn-primary">Register Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Match Schedule</h3>
+                            <p class="card-text">View upcoming matches, venues, and timings. Stay updated with the tournament calendar.</p>
+                            <button class="btn btn-primary">View Schedule</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Score Section -->
+    <section id="live-scores" class="live-score-section">
+        <div class="container">
+            <h2 class="text-center mb-4">Live Matches</h2>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-5 text-center">
+                            <h5>Team A</h5>
+                            <h3>245/6</h3>
+                            <p>(45.2 Overs)</p>
+                        </div>
+                        <div class="col-md-2 text-center d-flex align-items-center justify-content-center">
+                            <h4>VS</h4>
+                        </div>
+                        <div class="col-md-5 text-center">
+                            <h5>Team B</h5>
+                            <h3>180/4</h3>
+                            <p>(32.4 Overs)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Points Table Section -->
+    <section id="points-table" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Points Table</h2>
+            <div class="table-responsive">
+                <table class="table table-striped points-table">
+                    <thead>
+                        <tr>
+                            <th>Team</th>
+                            <th>Played</th>
+                            <th>Won</th>
+                            <th>Lost</th>
+                            <th>Points</th>
+                            <th>NRR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Team A</td>
+                            <td>5</td>
+                            <td>4</td>
+                            <td>1</td>
+                            <td>8</td>
+                            <td>+1.253</td>
+                        </tr>
+                        <tr>
+                            <td>Team B</td>
+                            <td>5</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>6</td>
+                            <td>+0.851</td>
+                        </tr>
+                        <tr>
+                            <td>Team C</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>-0.235</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scheduled Matches Section -->
+    <section id="scheduled-matches" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Scheduled Matches</h2>
+            <div id="matchesList" class="row g-4">
+                <!-- Matches will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">About Us</a></li>
+                        <li><a href="#" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>Email: info@crickleague.com</p>
+                    <p>Phone: +1 234 567 890</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- Team Registration Form -->
+<div class="modal fade" id="teamRegistrationModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Team Registration</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="teamRegistrationForm" class="needs-validation" novalidate>
+                    <!-- Team Basic Information -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Team Information</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="teamName" class="form-label">Team Name*</label>
+                                <input type="text" class="form-control" id="teamName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="teamShortName" class="form-label">Team Short Name* (max 4 chars)</label>
+                                <input type="text" class="form-control" id="teamShortName" maxlength="4" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="teamLogo" class="form-label">Team Logo*</label>
+                            <div class="d-flex flex-wrap">
+                                <label class="me-3">
+                                    <input type="radio" name="teamLogo" value="mi-logo.png" required>
+                                    <img src="Images/mi.jpg" alt="MI Logo" class="img-thumbnail" width="50">
+                                </label>
+                                <label class="me-3">
+                                    <input type="radio" name="teamLogo" value="csk-logo.png" required>
+                                    <img src="Images/csk.png" alt="CSK Logo" class="img-thumbnail" width="50">
+                                </label>
+                                <label class="me-3">
+                                    <input type="radio" name="teamLogo" value="rcb-logo.png" required>
+                                    <img src="Images/rcb.jpg" alt="RCB Logo" class="img-thumbnail" width="50">
+                                </label>
+                                <!-- Add more logos as needed -->
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="teamDescription" class="form-label">Team Description</label>
+                            <textarea class="form-control" id="teamDescription" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Contact Information</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="managerName" class="form-label">Manager Name*</label>
+                                <input type="text" class="form-control" id="managerName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="managerPhone" class="form-label">Contact Number*</label>
+                                <input type="tel" class="form-control" id="managerPhone" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="managerEmail" class="form-label">Email Address*</label>
+                            <input type="email" class="form-control" id="managerEmail" required>
+                        </div>
+                    </div>
+
+                    <!-- Home Ground Details -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Home Ground Details</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="groundName" class="form-label">Ground Name*</label>
+                                <input type="text" class="form-control" id="groundName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="groundCapacity" class="form-label">Ground Capacity</label>
+                                <input type="number" class="form-control" id="groundCapacity">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="groundAddress" class="form-label">Ground Address*</label>
+                            <textarea class="form-control" id="groundAddress" rows="2" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="termsAgree" required>
+                        <label class="form-check-label" for="termsAgree">
+                            I agree to the <a href="#" class="text-decoration-none">Terms and Conditions</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Register Team</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/team-registration.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/players.js"></script>
+
+<script>
+    // Example: Simulate user role (replace this with actual role-checking logic)
+    const userRole = localStorage.getItem('userRole') || 'player'; // Replace with actual role retrieval logic
+
+    // Match Scheduler Form Submission
+    document.getElementById('matchSchedulerForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const teamA = document.getElementById('teamA').value;
+        const teamB = document.getElementById('teamB').value;
+        const matchDate = document.getElementById('matchDate').value;
+        const matchTime = document.getElementById('matchTime').value;
+        const venue = document.getElementById('venue').value;
+
+        const matchCard = `
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5>${teamA} vs ${teamB}</h5>
+                        <p>${matchDate} at ${matchTime}</p>
+                        <p>Venue: ${venue}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.getElementById('matchesList').insertAdjacentHTML('beforeend', matchCard);
+
+        // Clear form fields
+        this.reset();
+    });
+
+    // Retrieve scheduled matches from localStorage
+    const scheduledMatches = JSON.parse(localStorage.getItem('scheduledMatches')) || [];
+    const matchesList = document.getElementById('matchesList');
+
+    // Clear existing matches and populate from localStorage
+    matchesList.innerHTML = '';
+    scheduledMatches.forEach(match => {
+        const matchCard = `
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5>${match.teamA} vs ${match.teamB}</h5>
+                        <p>${match.matchDate} at ${match.matchTime}</p>
+                        <p>Venue: ${match.venue}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        matchesList.insertAdjacentHTML('beforeend', matchCard);
+    });
+</script>
+
+</body>
+</html>
