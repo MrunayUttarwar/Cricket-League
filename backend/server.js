@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const User = require('./models/User');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 
@@ -32,18 +33,38 @@ app.post('/api/register', async (req, res) => {
     try {
         const { firstName, lastName, email, password, userRole } = req.body;
 
+        // Validate input
+        if (!firstName || !lastName || !email || !password || !userRole) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ message: 'Invalid email format' });
+        }
+
+        // Validate password strength (minimum 6 characters)
+        if (password.length < 6) {
+            return res.status(400).json({ message: 'Password must be at least 6 characters long' });
+        }
+
         // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'Email already registered' });
         }
 
+        // Hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
         // Create new user
         const user = new User({
             firstName,
             lastName,
             email,
-            password,
+            password: hashedPassword,
             userRole
         });
 
@@ -54,7 +75,6 @@ app.post('/api/register', async (req, res) => {
         res.status(500).json({ message: 'Server error during registration' });
     }
 });
-const bcrypt = require('bcryptjs');
 
 // Login endpoint
 app.post('/api/login', async (req, res) => {

@@ -13,29 +13,30 @@ document.getElementById('registrationForm').addEventListener('submit', async (e)
     };
 
     try {
-        if (!formData.email || !formData.password || !formData.firstName || !formData.lastName || !formData.userRole) {
-            throw new Error('Please fill in all required fields');
-        }
+        console.log('Sending registration request:', formData); // Debug log
 
         const response = await fetch('http://localhost:3000/api/register', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify(formData)
         });
+
+        console.log('Response received:', response); // Debug log
 
         const data = await response.json();
 
         if (response.ok) {
             alert('Registration successful!');
-            window.location.href = 'login.html';
+            window.location.href = './login.html';
         } else {
             throw new Error(data.message || 'Registration failed');
         }
     } catch (error) {
         console.error('Registration error:', error);
-        alert(error.message);
+        alert(error.message || 'An error occurred during registration');
     } finally {
         submitButton.disabled = false;
     }
