@@ -72,12 +72,7 @@
             <!-- Main Content -->
             <div class="col-md-9 col-lg-10 main-content">
                 <h1 class="mb-4">Matches</h1>
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <select class="form-select w-25" id="filterMatchType">
-                        <option value="">Filter by Match Type</option>
-                        <option value="league">League Match</option>
-                        <option value="friendly">Friendly Match</option>
-                    </select>
+                <div class="d-flex justify-content-end mb-3">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMatchModal">Add Match</button>
                 </div>
                 <div class="card">
@@ -101,42 +96,6 @@
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Match Modal -->
-    <div class="modal fade" id="addMatchModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add New Match</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="matchDate" class="form-label">Match Date</label>
-                            <input type="date" class="form-control" id="matchDate" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="opponentTeam" class="form-label">Opponent Team</label>
-                            <input type="text" class="form-control" id="opponentTeam" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="venue" class="form-label">Venue</label>
-                            <input type="text" class="form-control" id="venue" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="matchType" class="form-label">Match Type</label>
-                            <select class="form-select" id="matchType" required>
-                                <option value="league">League Match</option>
-                                <option value="friendly">Friendly Match</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Add Match</button>
-                    </form>
                 </div>
             </div>
         </div>

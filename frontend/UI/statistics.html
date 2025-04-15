@@ -37,6 +37,29 @@
             background-color: #1a472a;
             color: white;
         }
+
+        .milestone-box {
+        transition: transform 0.3s ease;
+        background-color: #f8f9fa;
+    }
+
+    .milestone-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .milestone-box h3 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card {
+        transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
     </style>
 </head>
 <body>
@@ -198,16 +221,14 @@
         async function updateCharts(playerId) {
             try {
                 const stats = await StatsAPI.getPlayerStats(playerId);
-                console.log('Retrieved stats:', stats); // Debug log
-
                 if (!stats || stats.length === 0) {
                     console.log('No stats found for player');
                     return;
                 }
 
-                const latestStats = stats[0]; // Get most recent stats
+                const latestStats = stats[0];
 
-                // Performance Chart (Bar Chart)
+                // Batting Performance (Runs & Wickets)
                 const perfCtx = document.getElementById('performanceChart');
                 if (performanceChart) {
                     performanceChart.destroy();
@@ -216,23 +237,20 @@
                 performanceChart = new Chart(perfCtx, {
                     type: 'bar',
                     data: {
-                        labels: ['Runs', 'Strike Rate', 'Average'],
+                        labels: ['Runs', 'Wickets x 20'], // Multiply wickets by 20 for better scale comparison
                         datasets: [{
-                            label: 'Batting Performance',
+                            label: 'Performance Metrics',
                             data: [
                                 latestStats.runs || 0,
-                                latestStats.strikeRate || 0,
-                                latestStats.average || 0
+                                (latestStats.wickets || 0) * 20 // Scale wickets
                             ],
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.5)',
                                 'rgba(54, 162, 235, 0.5)',
-                                'rgba(75, 192, 192, 0.5)'
+                                'rgba(255, 99, 132, 0.5)'
                             ],
                             borderColor: [
-                                'rgba(255, 99, 132, 1)',
                                 'rgba(54, 162, 235, 1)',
-                                'rgba(75, 192, 192, 1)'
+                                'rgba(255, 99, 132, 1)'
                             ],
                             borderWidth: 1
                         }]
@@ -241,53 +259,112 @@
                         responsive: true,
                         scales: {
                             y: {
-                                beginAtZero: true
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Runs / Wickets (x20)'
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Batting & Bowling Performance'
                             }
                         }
                     }
                 });
 
-                // Milestones Chart (Doughnut)
-                const mileCtx = document.getElementById('milestonesChart');
+                // Add a new line chart for Strike Rate and Average
+                const rateCtx = document.getElementById('milestonesChart');
                 if (milestonesChart) {
                     milestonesChart.destroy();
                 }
 
-                milestonesChart = new Chart(mileCtx, {
-                    type: 'doughnut',
+                milestonesChart = new Chart(rateCtx, {
+                    type: 'line',
                     data: {
-                        labels: ['Matches', 'Fifties', 'Hundreds', 'Wickets'],
+                        labels: ['Strike Rate', 'Average'],
                         datasets: [{
+                            label: 'Batting Rates',
                             data: [
-                                latestStats.matches || 0,
-                                latestStats.fifties || 0,
-                                latestStats.hundreds || 0,
-                                latestStats.wickets || 0
+                                latestStats.strikeRate || 0,
+                                latestStats.average || 0
                             ],
-                            backgroundColor: [
-                                'rgba(255, 206, 86, 0.5)',
-                                'rgba(75, 192, 192, 0.5)',
-                                'rgba(153, 102, 255, 0.5)',
-                                'rgba(255, 159, 64, 0.5)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                            pointRadius: 6
                         }]
                     },
                     options: {
                         responsive: true,
                         plugins: {
-                            legend: {
-                                position: 'bottom'
+                            title: {
+                                display: true,
+                                text: 'Batting Rates Comparison'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Rate'
+                                }
                             }
                         }
                     }
                 });
+
+                // Add a new card for milestone statistics
+                const statsContainer = document.querySelector('.row.g-4.mb-4');
+                const milestoneCard = document.createElement('div');
+                milestoneCard.className = 'col-md-12 mt-4';
+                milestoneCard.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Career Milestones</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-md-3">
+                                    <div class="milestone-box p-3 border rounded">
+                                        <h3 class="text-primary">${latestStats.matches || 0}</h3>
+                                        <p class="text-muted mb-0">Matches</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="milestone-box p-3 border rounded">
+                                        <h3 class="text-success">${latestStats.fifties || 0}</h3>
+                                        <p class="text-muted mb-0">Fifties</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="milestone-box p-3 border rounded">
+                                        <h3 class="text-info">${latestStats.hundreds || 0}</h3>
+                                        <p class="text-muted mb-0">Hundreds</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="milestone-box p-3 border rounded">
+                                        <h3 class="text-warning">${latestStats.wickets || 0}</h3>
+                                        <p class="text-muted mb-0">Wickets</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Remove existing milestone card if any
+                const existingMilestoneCard = document.querySelector('.milestone-card');
+                if (existingMilestoneCard) {
+                    existingMilestoneCard.remove();
+                }
+                statsContainer.appendChild(milestoneCard);
 
             } catch (error) {
                 console.error('Error updating charts:', error);

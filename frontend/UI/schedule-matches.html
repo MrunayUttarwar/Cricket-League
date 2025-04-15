@@ -94,33 +94,103 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/matches-api.js"></script>
     <script>
-        document.getElementById('matchSchedulerForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const teamA = document.getElementById('teamA').value;
-            const teamB = document.getElementById('teamB').value;
-            const matchDate = document.getElementById('matchDate').value;
-            const matchTime = document.getElementById('matchTime').value;
-            const venue = document.getElementById('venue').value;
+        document.addEventListener('DOMContentLoaded', async function() {
+            const form = document.getElementById('matchSchedulerForm');
+            
+            // Handle form submission
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
 
-            const match = { teamA, teamB, matchDate, matchTime, venue };
-            const matches = JSON.parse(localStorage.getItem('scheduledMatches')) || [];
-            matches.push(match);
-            localStorage.setItem('scheduledMatches', JSON.stringify(matches));
+                try {
+                    const matchData = {
+                        teamA: document.getElementById('teamA').value,
+                        teamB: document.getElementById('teamB').value,
+                        matchDate: document.getElementById('matchDate').value,
+                        matchTime: document.getElementById('matchTime').value,
+                        venue: document.getElementById('venue').value
+                    };
 
-            alert(`Match Scheduled:\n${teamA} vs ${teamB}\nDate: ${matchDate}\nTime: ${matchTime}\nVenue: ${venue}`);
-            this.reset();
-        });
+                    // Basic validation
+                    if (matchData.teamA === matchData.teamB) {
+                        alert('Team A and Team B cannot be the same');
+                        return;
+                    }
 
-        // Example: Simulate user role (replace this with actual role-checking logic)
-        const userRole = localStorage.getItem('userRole') || 'player'; // Replace with actual role retrieval logic
+                    const result = await MatchesAPI.scheduleMatch(matchData);
+                    alert('Match scheduled successfully!');
+                    form.reset();
+                    
+                    // Refresh the matches display
+                    await displayScheduledMatches();
+                } catch (error) {
+                    alert(error.message || 'Error scheduling match. Please try again.');
+                    console.error('Error:', error);
+                }
+            });
 
-        // Ensure the DOM is fully loaded before manipulating elements
-        document.addEventListener('DOMContentLoaded', () => {
-            // Show "Team Dashboard" option if the user is a team manager
-            if (userRole === 'team_manager') {
-                document.getElementById('teamDashboardNav').style.display = 'block';
+            async function displayScheduledMatches() {
+                const container = document.querySelector('.container');
+                const existingList = document.querySelector('.scheduled-matches');
+                if (existingList) {
+                    existingList.remove();
+                }
+
+                try {
+                    const matches = await MatchesAPI.getScheduledMatches();
+                    
+                    if (!matches || matches.length === 0) {
+                        const noMatches = document.createElement('div');
+                        noMatches.className = 'scheduled-matches mt-4';
+                        noMatches.innerHTML = '<p class="text-center">No matches scheduled yet</p>';
+                        container.appendChild(noMatches);
+                        return;
+                    }
+
+                    const matchesList = document.createElement('div');
+                    matchesList.className = 'scheduled-matches mt-4';
+                    matchesList.innerHTML = `
+                        <h3 class="mb-4">Scheduled Matches</h3>
+                        <div class="row g-4">
+                            ${matches.map(match => `
+                                <div class="col-md-4">
+                                    <div class="card h-100">
+                                        <div class="card-header bg-primary text-white">
+                                            <h5 class="card-title mb-0">${match.teamA} vs ${match.teamB}</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                <i class="fas fa-calendar me-2"></i>
+                                                ${new Date(match.matchDate).toLocaleDateString()}
+                                            </p>
+                                            <p class="card-text">
+                                                <i class="fas fa-clock me-2"></i>
+                                                ${match.matchTime}
+                                            </p>
+                                            <p class="card-text">
+                                                <i class="fas fa-map-marker-alt me-2"></i>
+                                                ${match.venue}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                    container.appendChild(matchesList);
+                } catch (error) {
+                    console.error('Error displaying matches:', error);
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'alert alert-danger mt-4';
+                    errorDiv.textContent = 'Error loading scheduled matches';
+                    container.appendChild(errorDiv);
+                }
             }
+
+            // Display matches when page loads
+            await displayScheduledMatches();
         });
     </script>
 </body>

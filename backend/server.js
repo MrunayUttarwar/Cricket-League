@@ -5,6 +5,7 @@ const cors = require('cors');
 const User = require('./models/User');
 const bcrypt = require('bcryptjs');
 const PlayerStats = require('./models/PlayerStats');
+const Match = require('./models/Match');
 
 const app = express();
 
@@ -184,6 +185,46 @@ app.get('/api/players', async (req, res) => {
     } catch (error) {
         console.error('Error fetching players:', error);
         res.status(500).json({ message: 'Error fetching players' });
+    }
+});
+
+// Schedule a match
+app.post('/api/matches', async (req, res) => {
+    try {
+        const { teamA, teamB, matchDate, matchTime, venue } = req.body;
+
+        // Basic validation
+        if (!teamA || !teamB || !matchDate || !matchTime || !venue) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+        // Create new match
+        const match = new Match({
+            teamA,
+            teamB,
+            matchDate,
+            matchTime,
+            venue
+        });
+
+        await match.save();
+        res.status(201).json({ message: 'Match scheduled successfully', match });
+    } catch (error) {
+        console.error('Error scheduling match:', error);
+        res.status(500).json({ message: 'Error scheduling match' });
+    }
+});
+
+// Get all scheduled matches
+app.get('/api/matches', async (req, res) => {
+    try {
+        const matches = await Match.find()
+            .sort({ matchDate: 1, matchTime: 1 }) // Sort by date and time
+            .exec();
+        res.json(matches);
+    } catch (error) {
+        console.error('Error fetching matches:', error);
+        res.status(500).json({ message: 'Error fetching matches' });
     }
 });
 
