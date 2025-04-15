@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const User = require('./models/User');
 const bcrypt = require('bcryptjs');
+const PlayerStats = require('./models/PlayerStats');
 
 const app = express();
 
@@ -124,6 +125,65 @@ app.post('/api/login', async (req, res) => {
             message: 'Server error during login',
             error: error.message 
         });
+    }
+});
+
+// Add player statistics
+app.post('/api/player-stats', async (req, res) => {
+    try {
+        const { playerId, matches, runs, wickets, average, strikeRate, fifties, hundreds } = req.body;
+        
+        const playerStats = new PlayerStats({
+            playerId,
+            matches,
+            runs,
+            wickets,
+            average,
+            strikeRate,
+            fifties,
+            hundreds
+        });
+
+        await playerStats.save();
+        res.status(201).json({ message: 'Player statistics added successfully' });
+    } catch (error) {
+        console.error('Error adding player stats:', error);
+        res.status(500).json({ message: 'Server error while adding stats' });
+    }
+});
+
+// Get all stats for a player
+app.get('/api/player-stats/:playerId', async (req, res) => {
+    try {
+        const stats = await PlayerStats.find({ playerId: req.params.playerId })
+            .sort({ timestamp: -1 }) // Get most recent first
+            .limit(1);
+        
+        console.log('Found stats:', stats); // Debug log
+        
+        if (!stats || stats.length === 0) {
+            return res.status(404).json({ message: 'No stats found for this player' });
+        }
+        
+        res.json(stats);
+    } catch (error) {
+        console.error('Error fetching player stats:', error);
+        res.status(500).json({ message: 'Error fetching player stats' });
+    }
+});
+
+// Get all players
+app.get('/api/players', async (req, res) => {
+    try {
+        const players = await User.find({ userRole: 'player' }, 'firstName lastName _id');
+        const formattedPlayers = players.map(player => ({
+            id: player._id,
+            name: `${player.firstName} ${player.lastName}`
+        }));
+        res.json(formattedPlayers);
+    } catch (error) {
+        console.error('Error fetching players:', error);
+        res.status(500).json({ message: 'Error fetching players' });
     }
 });
 

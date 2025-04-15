@@ -103,7 +103,33 @@ body {
 /* Live Score Section */
 .live-score-section {
     background-color: #f8f9fa;
-    padding: 40px 0;
+}
+
+.live-score-section .card {
+    margin-bottom: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.live-score-section .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.live-score-section .badge {
+    font-size: 0.8rem;
+    padding: 0.5em 1em;
+}
+
+#loading {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+#error-message {
+    margin-top: 1rem;
 }
 
 /* Points Table Styles */

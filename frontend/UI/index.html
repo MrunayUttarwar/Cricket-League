@@ -28,23 +28,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#scheduled-matches">
-                            <i class="fas fa-calendar-alt me-1"></i>Schedule
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#points-table">
                             <i class="fas fa-trophy me-1"></i>Points Table
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="team-dashboard.html">
-                            <i class="fas fa-users me-1"></i>Team Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="schedule-matches.html" class="btn btn-outline-light">
-                            <i class="fas fa-plus me-1"></i>Schedule Matches
+                        <a class="nav-link" href="#scheduled-matches">
+                            <i class="fas fa-calendar-alt me-1"></i>Schedule
                         </a>
                     </li>
                 </ul>
@@ -52,28 +42,11 @@
         </div>
     </nav>
 
-    <!-- Hero Section with SVG Background -->
+    <!-- Hero Section -->
     <section class="hero-section">
-        <svg class="hero-background" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-            <rect width="800" height="600" fill="#1a472a"/>
-            <ellipse cx="400" cy="300" rx="350" ry="250" fill="#2d5a3c" stroke="#ffffff" stroke-width="2"/>
-            <rect x="350" y="200" width="100" height="200" fill="#c4a484" stroke="#ffffff" stroke-width="1"/>
-            <rect x="340" y="220" width="120" height="5" fill="#ffffff"/>
-            <rect x="340" y="375" width="120" height="5" fill="#ffffff"/>
-            <g fill="#cc0000">
-                <circle cx="100" cy="100" r="15"/>
-                <circle cx="700" cy="100" r="15"/>
-                <circle cx="100" cy="500" r="15"/>
-                <circle cx="700" cy="500" r="15"/>
-            </g>
-            <g fill="#8b4513">
-                <path d="M200 50 L220 50 L230 150 L190 150 Z"/>
-                <path d="M600 450 L620 450 L630 550 L590 550 Z"/>
-            </g>
-        </svg>
         <div class="container hero-content">
             <h1 class="display-4 mb-4">Cricket League Management System</h1>
-            <p class="lead mb-4 fs-4">Experience the thrill of cricket like never before! Our comprehensive platform brings together teams, players, and fans in one dynamic ecosystem. Manage team registrations, access detailed statistics, and stay updated with the latest tournament highlights.</p>
+            <p class="lead mb-4 fs-4">Experience the thrill of cricket like never before!</p>
             <div class="hero-buttons">
                 <a href="login.html" class="btn btn-light btn-lg me-3 hover-effect">
                     <i class="fas fa-sign-in-alt me-2"></i>Login
@@ -93,7 +66,7 @@
                     <div class="card feature-card h-100">
                         <div class="card-body text-center">
                             <h3 class="card-title">Player Registration</h3>
-                            <p class="card-text">Register players for the upcoming season. Manage team rosters and player profiles.</p>
+                            <p class="card-text">Register players for the upcoming season.</p>
                             <a href="player-registration.html" class="btn btn-primary">Register Now</a>
                         </div>
                     </div>
@@ -102,7 +75,7 @@
                     <div class="card feature-card h-100">
                         <div class="card-body text-center">
                             <h3 class="card-title">Match Schedule</h3>
-                            <p class="card-text">View upcoming matches, venues, and timings. Stay updated with the tournament calendar.</p>
+                            <p class="card-text">View upcoming matches and venues.</p>
                             <button class="btn btn-primary">View Schedule</button>
                         </div>
                     </div>
@@ -112,27 +85,19 @@
     </section>
 
     <!-- Live Score Section -->
-    <section id="live-scores" class="live-score-section">
+    <section id="live-scores" class="live-score-section py-5">
         <div class="container">
             <h2 class="text-center mb-4">Live Matches</h2>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-5 text-center">
-                            <h5>Team A</h5>
-                            <h3>245/6</h3>
-                            <p>(45.2 Overs)</p>
-                        </div>
-                        <div class="col-md-2 text-center d-flex align-items-center justify-content-center">
-                            <h4>VS</h4>
-                        </div>
-                        <div class="col-md-5 text-center">
-                            <h5>Team B</h5>
-                            <h3>180/4</h3>
-                            <p>(32.4 Overs)</p>
-                        </div>
-                    </div>
+            <div id="live-scores-container" class="row g-4">
+                <!-- Live match cards will be dynamically added here -->
+            </div>
+            <div id="loading" class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
                 </div>
+            </div>
+            <div id="error-message" class="alert alert-danger d-none" role="alert">
+                Failed to load live matches
             </div>
         </div>
     </section>
@@ -214,163 +179,132 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="js/live-matches.js"></script>
+    <script src="js/team-registration.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/players.js"></script>
+    <script>
+        // Match scheduling functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const userRole = localStorage.getItem('userRole') || 'player';
 
-<!-- Team Registration Form -->
-<div class="modal fade" id="teamRegistrationModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Team Registration</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="teamRegistrationForm" class="needs-validation" novalidate>
-                    <!-- Team Basic Information -->
-                    <div class="mb-4">
-                        <h6 class="fw-bold">Team Information</h6>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="teamName" class="form-label">Team Name*</label>
-                                <input type="text" class="form-control" id="teamName" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="teamShortName" class="form-label">Team Short Name* (max 4 chars)</label>
-                                <input type="text" class="form-control" id="teamShortName" maxlength="4" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="teamLogo" class="form-label">Team Logo*</label>
-                            <div class="d-flex flex-wrap">
-                                <label class="me-3">
-                                    <input type="radio" name="teamLogo" value="mi-logo.png" required>
-                                    <img src="Images/mi.jpg" alt="MI Logo" class="img-thumbnail" width="50">
-                                </label>
-                                <label class="me-3">
-                                    <input type="radio" name="teamLogo" value="csk-logo.png" required>
-                                    <img src="Images/csk.png" alt="CSK Logo" class="img-thumbnail" width="50">
-                                </label>
-                                <label class="me-3">
-                                    <input type="radio" name="teamLogo" value="rcb-logo.png" required>
-                                    <img src="Images/rcb.jpg" alt="RCB Logo" class="img-thumbnail" width="50">
-                                </label>
-                                <!-- Add more logos as needed -->
+            // Match Scheduler Form Submission
+            const matchSchedulerForm = document.getElementById('matchSchedulerForm');
+            if (matchSchedulerForm) {
+                matchSchedulerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const teamA = document.getElementById('teamA').value;
+                    const teamB = document.getElementById('teamB').value;
+                    const matchDate = document.getElementById('matchDate').value;
+                    const matchTime = document.getElementById('matchTime').value;
+                    const venue = document.getElementById('venue').value;
+
+                    const matchCard = `
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5>${teamA} vs ${teamB}</h5>
+                                    <p>${matchDate} at ${matchTime}</p>
+                                    <p>Venue: ${venue}</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="teamDescription" class="form-label">Team Description</label>
-                            <textarea class="form-control" id="teamDescription" rows="3"></textarea>
-                        </div>
-                    </div>
+                    `;
+                    document.getElementById('matchesList').insertAdjacentHTML('beforeend', matchCard);
+                    this.reset();
+                });
+            }
 
-                    <!-- Contact Information -->
-                    <div class="mb-4">
-                        <h6 class="fw-bold">Contact Information</h6>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="managerName" class="form-label">Manager Name*</label>
-                                <input type="text" class="form-control" id="managerName" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="managerPhone" class="form-label">Contact Number*</label>
-                                <input type="tel" class="form-control" id="managerPhone" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="managerEmail" class="form-label">Email Address*</label>
-                            <input type="email" class="form-control" id="managerEmail" required>
-                        </div>
-                    </div>
-
-                    <!-- Home Ground Details -->
-                    <div class="mb-4">
-                        <h6 class="fw-bold">Home Ground Details</h6>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="groundName" class="form-label">Ground Name*</label>
-                                <input type="text" class="form-control" id="groundName" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="groundCapacity" class="form-label">Ground Capacity</label>
-                                <input type="number" class="form-control" id="groundCapacity">
+            // Load scheduled matches
+            const scheduledMatches = JSON.parse(localStorage.getItem('scheduledMatches')) || [];
+            const matchesList = document.getElementById('matchesList');
+            if (matchesList) {
+                matchesList.innerHTML = '';
+                scheduledMatches.forEach(match => {
+                    const matchCard = `
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5>${match.teamA} vs ${match.teamB}</h5>
+                                    <p>${match.matchDate} at ${match.matchTime}</p>
+                                    <p>Venue: ${match.venue}</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="groundAddress" class="form-label">Ground Address*</label>
-                            <textarea class="form-control" id="groundAddress" rows="2" required></textarea>
-                        </div>
-                    </div>
+                    `;
+                    matchesList.insertAdjacentHTML('beforeend', matchCard);
+                });
+            }
+        });
 
-                    <!-- Terms and Conditions -->
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="termsAgree" required>
-                        <label class="form-check-label" for="termsAgree">
-                            I agree to the <a href="#" class="text-decoration-none">Terms and Conditions</a>
-                        </label>
-                    </div>
+        // Live matches functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const liveScoresContainer = document.getElementById('live-scores-container');
+            const loadingElement = document.getElementById('loading');
+            const errorElement = document.getElementById('error-message');
 
-                    <button type="submit" class="btn btn-primary w-100">Register Team</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+            async function fetchAndDisplayLiveMatches() {
+                try {
+                    loadingElement.classList.remove('d-none');
+                    errorElement.classList.add('d-none');
+                    liveScoresContainer.innerHTML = '';
 
-<script src="js/team-registration.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/players.js"></script>
+                    const API_KEY = '3fbe29e5-d1a1-48cd-8cd2-1c2d5f993796';
+                    const response = await fetch(`https://api.cricapi.com/v1/currentMatches?apikey=${API_KEY}`);
+                    const data = await response.json();
 
-<script>
-    // Example: Simulate user role (replace this with actual role-checking logic)
-    const userRole = localStorage.getItem('userRole') || 'player'; // Replace with actual role retrieval logic
+                    if (!data.data || data.data.length === 0) {
+                        liveScoresContainer.innerHTML = `
+                            <div class="col-12 text-center">
+                                <p class="lead">No live matches currently in progress</p>
+                            </div>`;
+                        return;
+                    }
 
-    // Match Scheduler Form Submission
-    document.getElementById('matchSchedulerForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const teamA = document.getElementById('teamA').value;
-        const teamB = document.getElementById('teamB').value;
-        const matchDate = document.getElementById('matchDate').value;
-        const matchTime = document.getElementById('matchTime').value;
-        const venue = document.getElementById('venue').value;
+                    const matchesHTML = data.data
+                        .filter(match => match.status !== 'completed')
+                        .map(match => `
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center mb-3">${match.name}</h5>
+                                        <div class="row g-3">
+                                            <div class="col-5 text-center">
+                                                <h6>${match.teams[0]}</h6>
+                                                <p class="mb-0 fs-5">${match.score[0] || 'Yet to bat'}</p>
+                                            </div>
+                                            <div class="col-2 text-center d-flex align-items-center justify-content-center">
+                                                <span class="badge bg-primary">VS</span>
+                                            </div>
+                                            <div class="col-5 text-center">
+                                                <h6>${match.teams[1]}</h6>
+                                                <p class="mb-0 fs-5">${match.score[1] || 'Yet to bat'}</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-center mt-3">
+                                            <small class="text-muted">${match.status}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
 
-        const matchCard = `
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h5>${teamA} vs ${teamB}</h5>
-                        <p>${matchDate} at ${matchTime}</p>
-                        <p>Venue: ${venue}</p>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.getElementById('matchesList').insertAdjacentHTML('beforeend', matchCard);
+                    liveScoresContainer.innerHTML = matchesHTML;
+                } catch (error) {
+                    console.error('Error fetching live matches:', error);
+                    errorElement.classList.remove('d-none');
+                } finally {
+                    loadingElement.classList.add('d-none');
+                }
+            }
 
-        // Clear form fields
-        this.reset();
-    });
-
-    // Retrieve scheduled matches from localStorage
-    const scheduledMatches = JSON.parse(localStorage.getItem('scheduledMatches')) || [];
-    const matchesList = document.getElementById('matchesList');
-
-    // Clear existing matches and populate from localStorage
-    matchesList.innerHTML = '';
-    scheduledMatches.forEach(match => {
-        const matchCard = `
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h5>${match.teamA} vs ${match.teamB}</h5>
-                        <p>${match.matchDate} at ${match.matchTime}</p>
-                        <p>Venue: ${match.venue}</p>
-                    </div>
-                </div>
-            </div>
-        `;
-        matchesList.insertAdjacentHTML('beforeend', matchCard);
-    });
-</script>
-
+            // Initial fetch
+            fetchAndDisplayLiveMatches();
+            // Update every 5 minutes
+            setInterval(fetchAndDisplayLiveMatches, 900000);
+        });
+    </script>
 </body>
 </html>
